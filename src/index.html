@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <link rel="favicon" href="/favicon.png" />
+    <link rel="preconnect" crossorigin="use-credentials" href=<%= process.env.REACT_APP_STAGE === 'production' ? "https://realty.kr.karrotmarket.com" : "https://realty.alpha.kr.karrotmarket.com"%> />
+    <script>
+      if (window.location.pathname === '/') {
+        var link = document.createElement('link');
+        link.as = 'script';
+        link.rel = "preload"
+        link.href = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=<%= process.env.REACT_APP_STAGE === 'production' ? '390ecb44c4fb3f191d7a351d697212b0': '3147f31e8bf2124276d5308be9acdcbb'%>&libraries=clusterer&autoload=false"
+        document.currentScript.parentNode.insertBefore(link, document.currentScript.nextSibling);
+      }
+    </script>
+    <style type="text/css">:root { --sat: env(safe-area-inset-top); }</style>
+    <script>
+      /**
+       * Prevent layout shifting by safe-area-inset-top
+       * https://bugs.webkit.org/show_bug.cgi?id=191872
+       */
+      var h = document.head || document.getElementsByTagName('head')[0];
+      var b = document.documentElement;
+      var k = "env(safe-area-inset-top)";
+      var t = 2000;
+      var sat = localStorage.getItem(k);
+  
+      if (sat) {
+        // 주의: 이 부분에서 셀렉터가 잘 적용되는지 체크 필요
+        var c = `#root > div { --stackflow-plugin-basic-ui-app-bar-min-safe-area-inset-top: ${sat}; }`;
+  
+        var s = document.createElement('style');
+        s.type = 'text/css';
+        s.appendChild(document.createTextNode(c));
+  
+        h.appendChild(s);
+      }
+  
+      setTimeout(() => {
+        localStorage.setItem(k, getComputedStyle(b).getPropertyValue("--sat"));
+      }, t);
+    </script>
+    <% if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_STAGE === 'production') {
+    %>
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', 'dv89y4ph21');
+    </script>
+    <% } %>
+    <title>부동산 직거래</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

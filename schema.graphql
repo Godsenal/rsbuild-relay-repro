@@ -1,0 +1,8 @@
+type Test {
+  test: String!
+  test2: String!
+}
+
+type Query {
+  getTest: Test!
+}
